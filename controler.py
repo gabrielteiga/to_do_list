@@ -1,5 +1,6 @@
 import mysql.connector
 
+
 class ConnectorMysql:
     def __init__(self):
         user, pwd, host, db = self.login_local_host()
@@ -9,20 +10,22 @@ class ConnectorMysql:
         self.database = db.lower()
         self.cursor = self.cnx.cursor()
 
-    def login_local_host(self):
+    @staticmethod
+    def login_local_host():
         user = str(input('User: '))
         pwd = str(input('Password: '))
         host = str(input('Host: '))
         db = str(input('Database: '))
         return user, pwd, host, db
 
-    def create_connector(self, user, pwd, host, db):
+    @staticmethod
+    def create_connector(user, pwd, host, db):
         try:
             cnx = mysql.connector.connect(
-                user = f'{user}',
-                user = f'{pwd}',
-                user = f'{host}',
-                user = f'{db}'
+                user=f'{user}',
+                password=f'{pwd}',
+                host=f'{host}',
+                database=f'{db}'
             )
             return cnx
         except:
@@ -33,24 +36,23 @@ class ConnectorMysql:
         data_query = select_data_tbTodo()
         self.cursor.execute(data_query)
         tasks = self.cursor.fetchall()
-        for task in tasks:
-            print(task)
+        return tasks
 
     def insert_task(self, task_creation_date, description, endline):
         from dbTodo import insert_data_tbTodo
         data_query = insert_data_tbTodo(task_creation_date, description, endline)
         self.cursor.execute(data_query)
+        self.commit()
 
     def uptade_date(self, val):
         from dbTodo import update_data_tbTodo
         data_query = update_data_tbTodo()
         self.cursor.execute(data_query, val)
+        self.commit()
 
     def commit(self):
         self.cnx.commit()
-        print('New commit!\nUser: {}').format(
-            self.user
-        )
+        print('New commit!\nUser: {}'.format(self.user))
 
     def close_connector(self):
         self.cursor.close()

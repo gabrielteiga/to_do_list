@@ -16,7 +16,8 @@ def load_tasks(cnx):
 def inserting(cnx):
     task = input('Qual a tarefa? ')
     endline = input('Qual o prazo final? ')
-    cnx.insert_task(datetime.date.today(), task, endline)
+    val = (datetime.date.today(), task, endline)
+    cnx.insert_task(val)
 
 
 def updating(cnx):

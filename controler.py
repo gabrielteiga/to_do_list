@@ -38,9 +38,9 @@ class ConnectorMysql:
         tasks = self.cursor.fetchall()
         return tasks
 
-    def insert_task(self, task_creation_date, description, endline):
-        data_query = insert_data_tbTodo(task_creation_date, description, endline)
-        self.cursor.execute(data_query)
+    def insert_task(self, val):
+        data_query = insert_data_tbTodo()
+        self.cursor.execute(data_query, val)
         self.commit()
 
     def update_date(self, val):

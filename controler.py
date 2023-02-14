@@ -1,4 +1,5 @@
 import mysql.connector
+from dbTodo import insert_data_tbTodo, update_data_tbTodo, select_data_tbTodo
 
 
 class ConnectorMysql:
@@ -32,20 +33,17 @@ class ConnectorMysql:
             print("Script didn't find the database")
 
     def view_tasks(self):
-        from dbTodo import select_data_tbTodo
         data_query = select_data_tbTodo()
         self.cursor.execute(data_query)
         tasks = self.cursor.fetchall()
         return tasks
 
     def insert_task(self, task_creation_date, description, endline):
-        from dbTodo import insert_data_tbTodo
         data_query = insert_data_tbTodo(task_creation_date, description, endline)
         self.cursor.execute(data_query)
         self.commit()
 
-    def uptade_date(self, val):
-        from dbTodo import update_data_tbTodo
+    def update_date(self, val):
         data_query = update_data_tbTodo()
         self.cursor.execute(data_query, val)
         self.commit()

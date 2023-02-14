@@ -1,5 +1,5 @@
 from controler import ConnectorMysql
-
+import datetime
 
 def header():
     print('*************************')
@@ -8,21 +8,28 @@ def header():
 
 
 def load_tasks(cnx):
-    login = cnx
-    tasks = login.view_tasks()
-    print(type(tasks))
+    tasks = cnx.view_tasks()
     return tasks
 
 
 cnx = ConnectorMysql()
 # cnx.insert_task('2022-05-22', 'Testando conexao', '2022-05-23')
-tasks = load_tasks(cnx)
+# val = ("2024-11-20","3")
+# cnx.update_date(val)
 
 while True:
+    tasks = load_tasks(cnx)
     for task in tasks:
-        print('Task {}: {}.\nendline: {}'.format(task[0], task[1], task[2]))
+        if task[2] <= datetime.date.today():
+            print('\033[31m' + 'Task {}(ATRASADO): {}.\nendline: {}\n'.format(task[0], task[1], task[2]) + '\033[0m')
+        else:
+            print('\033[32m' + 'Task {}: {}.\nendline: {}\n'.format(task[0], task[1], task[2]) + '\033[0m')
+        
+# se datetime.date.today()
+
     break
 
+cnx.close_connector()
     #     if pendencia.limit > datetime.date.today():
     #         print('Pendencia no prazo!')
     #     if pendencia.limit == datetime.date.today():

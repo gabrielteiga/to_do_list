@@ -6,7 +6,7 @@ def insert_data_tbTodo(task_creation_date, description, endline):
     return data_query
 
 def update_data_tbTodo():
-    data_query = """UPDATE tbTodo SET endline = %s WHERE id_task %s;"""
+    data_query = """UPDATE tbTodo SET endline = %s WHERE id_task = %s;"""
     return data_query
 
 def select_data_tbTodo():

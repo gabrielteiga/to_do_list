@@ -12,3 +12,6 @@ def update_data_tbTodo():
 def select_data_tbTodo():
     data_query = """SELECT id_task, task, endline FROM tbTodo;"""
     return data_query
+
+def delete_task_tbTodo():
+    data_query = """DELETE FROM tbTodo WHERE id_task = %s"""

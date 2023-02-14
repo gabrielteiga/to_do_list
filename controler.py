@@ -1,5 +1,5 @@
 import mysql.connector
-from dbTodo import insert_data_tbTodo, update_data_tbTodo, select_data_tbTodo
+from dbTodo import insert_data_tbTodo, update_data_tbTodo, select_data_tbTodo, delete_task_tbTodo
 
 
 class ConnectorMysql:
@@ -48,9 +48,15 @@ class ConnectorMysql:
         self.cursor.execute(data_query, val)
         self.commit()
 
+    def delete_data(self, id_task):
+        data_query = delete_task_tbTodo()
+        self.cursor.execute(data_query, id_task)
+        self.commit()
+        print('\nTask {} deleted!\n'.format(id_task))
+
     def commit(self):
         self.cnx.commit()
-        print('New commit!\nUser: {}'.format(self.user))
+        print('\nNew commit!\nUser: {}\n'.format(self.user))
 
     def close_connector(self):
         self.cursor.close()

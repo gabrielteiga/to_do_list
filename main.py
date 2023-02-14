@@ -15,13 +15,12 @@ def load_tasks(cnx):
 
 
 cnx = ConnectorMysql()
-cnx.insert_task('2022-05-22', 'Testando conexao', '2022-05-23')
+# cnx.insert_task('2022-05-22', 'Testando conexao', '2022-05-23')
 tasks = load_tasks(cnx)
 
 while True:
     for task in tasks:
-        print(task)
-        print(type(task))
+        print('Task {}: {}.\nendline: {}'.format(task[0], task[1], task[2]))
     break
 
     #     if pendencia.limit > datetime.date.today():

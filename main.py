@@ -2,7 +2,7 @@ from controler import ConnectorMysql as Login
 import datetime
 
 
-def header():
+def title_todolist():
     print('*************************')
     print('****** TO DO LIST *******')
     print('*************************')
@@ -60,9 +60,8 @@ def show_tasks(cnx):
 
 
 def main():
-    header()
+    title_todolist()
     cnx = Login()
-    print('')
     while True:
         show_tasks(cnx)
         request = client_request()
@@ -73,7 +72,7 @@ def main():
         elif request == 3:
             deleting(cnx)
         elif request == 4:
-            print('Saindo do programa')
+            print('Saindo do programa!')
             break
         else:
             raise ValueError('Requisição não existente!')

@@ -17,6 +17,7 @@ class ConnectorMysql:
         pwd = str(input('Password: '))
         host = str(input('Host: '))
         db = str(input('Database: '))
+        print('')
         return user, pwd, host, db
 
     @staticmethod

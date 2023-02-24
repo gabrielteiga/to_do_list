@@ -63,9 +63,11 @@ def show_tasks(cnx):
 def get_task(cnx):
     id_task = tuple(input("What's the task id? "))
     task = cnx.get_details_task(id_task)
+    print('\n---------- DETAILS TASK {} ----------'.format(task[0]))
     print(
-        f"\nTask n°{task[0]}\nTask created in: {task[1]}\nTask: {task[2]}\ndeadline: {task[3]}\n"
+        f"Task n°{task[0]}\nTask created in: {task[1]}\nTask: {task[2]}\ndeadline: {task[3]}"
     )
+    print('--------------- END ---------------\n')
 
 
 def main():
@@ -83,7 +85,7 @@ def main():
         elif request == 4:
             get_task(cnx)
         elif request == 5:
-            print('See you soon!')
+            print('\nSee you soon!\n')
             break
         else:
             raise ValueError('Invalid request!')

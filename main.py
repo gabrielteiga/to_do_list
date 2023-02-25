@@ -53,7 +53,7 @@ def show_tasks(cnx):
     tasks = load_tasks(cnx)
     for task in tasks:
         if task[2] < datetime.date.today():
-            print('\033[31m' + 'Task {}(ATRASADO): {}.\ndeadline: {}'.format(task[0], task[1], task[2]) + '\033[0m')
+            print('\033[31m' + 'Task {}(OVERDUE): {}.\ndeadline: {}'.format(task[0], task[1], task[2]) + '\033[0m')
         elif task[2] == datetime.date.today():
             print('\033[33m' + 'Task {}: {}.\ndeadline: {}'.format(task[0], task[1], task[2]) + '\033[0m')
         else:

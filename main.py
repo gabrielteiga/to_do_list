@@ -52,12 +52,7 @@ def client_request():
 def show_tasks(cnx):
     tasks = load_tasks(cnx)
     for task in tasks:
-        if task.deadline < datetime.date.today():
-            print('\033[31m' + 'Task {}(OVERDUE): {}.\ndeadline: {}'.format(task.id, task.task, task.deadline) + '\033[0m')
-        elif task.deadline == datetime.date.today():
-            print('\033[33m' + 'Task {}: {}.\ndeadline: {}'.format(task.id, task.task, task.deadline) + '\033[0m')
-        else:
-            print('\033[32m' + 'Task {}: {}.\ndeadline: {}'.format(task.id, task.task, task.deadline) + '\033[0m')
+        print(task)
 
 
 def get_task(cnx):

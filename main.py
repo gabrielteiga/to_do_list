@@ -52,20 +52,20 @@ def client_request():
 def show_tasks(cnx):
     tasks = load_tasks(cnx)
     for task in tasks:
-        if task[2] < datetime.date.today():
-            print('\033[31m' + 'Task {}(OVERDUE): {}.\ndeadline: {}'.format(task[0], task[1], task[2]) + '\033[0m')
-        elif task[2] == datetime.date.today():
-            print('\033[33m' + 'Task {}: {}.\ndeadline: {}'.format(task[0], task[1], task[2]) + '\033[0m')
+        if task.deadline < datetime.date.today():
+            print('\033[31m' + 'Task {}(OVERDUE): {}.\ndeadline: {}'.format(task.id, task.task, task.deadline) + '\033[0m')
+        elif task.deadline == datetime.date.today():
+            print('\033[33m' + 'Task {}: {}.\ndeadline: {}'.format(task.id, task.task, task.deadline) + '\033[0m')
         else:
-            print('\033[32m' + 'Task {}: {}.\ndeadline: {}'.format(task[0], task[1], task[2]) + '\033[0m')
+            print('\033[32m' + 'Task {}: {}.\ndeadline: {}'.format(task.id, task.task, task.deadline) + '\033[0m')
 
 
 def get_task(cnx):
     id_task = tuple(input("What's the task id? "))
     task = cnx.get_details_task(id_task)
-    print('\n---------- DETAILS TASK {} ----------'.format(task[0]))
+    print('\n---------- DETAILS TASK {} ----------'.format(task.id))
     print(
-        f"Task n°{task[0]}\nTask created in: {task[1]}\nTask: {task[2]}\ndeadline: {task[3]}"
+        f"Task n°{task.id}\nTask created in: {task.created_date}\nTask: {task.task}\ndeadline: {task.deadline}"
     )
     print('--------------- END ---------------\n')
 

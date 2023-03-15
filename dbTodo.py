@@ -12,7 +12,7 @@ def update_data_tbTodo():
 
 
 def select_data_tbTodo():
-    data_query = """SELECT id_task, task, deadline FROM tbTodo;"""
+    data_query = """SELECT * FROM tbTodo;"""
     return data_query
 
 

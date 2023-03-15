@@ -1,4 +1,5 @@
 import mysql.connector
+from task_object import Task
 from dbTodo import insert_data_tbTodo, update_data_tbTodo, select_data_tbTodo, delete_task_tbTodo, select_task_tbTodo
 
 
@@ -36,13 +37,18 @@ class ConnectorMysql:
     def get_all_tasks(self):
         data_query = select_data_tbTodo()
         self.cursor.execute(data_query)
-        tasks = self.cursor.fetchall()
+        list_of_tasks = self.cursor.fetchall()
+        tasks = []
+        for job in list_of_tasks:
+            task = Task(job)
+            tasks.append(task)
         return tasks
 
     def get_details_task(self, val):
         data_query = select_task_tbTodo()
         self.cursor.execute(data_query, val)
-        task = self.cursor.fetchone()
+        job = self.cursor.fetchone()
+        task = Task(job)
         return task
 
     def insert_task(self, val):

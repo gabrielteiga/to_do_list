@@ -13,27 +13,10 @@ def load_tasks(cnx):
     return tasks
 
 
-def inserting(cnx):
-    task = input('What do you need to do? ')
-    deadline = input("What's the deadline(YYYY-MM-DD)? ")
-    val = (datetime.date.today(), task, deadline)
-    cnx.insert_task(val)
-
-
-def updating(cnx):
-    try:
-        task = str(input("What's task id? "))
-        new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
-        val = (new_deadline, task)
-        cnx.update_date(val)
-    except:
-        raise ValueError("Task not found!")
-
-
-def deleting(cnx):
-    id_task = tuple(input("What's the task id? "))
-    print('Deleting task {}'.format(id_task))
-    cnx.delete_data(id_task)
+def show_tasks(cnx):
+    tasks = load_tasks(cnx)
+    for task in tasks:
+        print(task)
 
 
 def client_request():
@@ -49,20 +32,30 @@ def client_request():
     return request
 
 
-def show_tasks(cnx):
-    tasks = load_tasks(cnx)
-    for task in tasks:
-        print(task)
+def inserting(cnx):
+    task = input('What do you need to do? ')
+    deadline = input("What's the deadline(YYYY-MM-DD)? ")
+    val = (datetime.date.today(), task, deadline)
+    cnx.insert_task(val)
+
+
+def updating(cnx):
+    task = str(input("What's task id? "))
+    new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
+    val = (new_deadline, task)
+    cnx.update_date(val)
+
+
+def deleting(cnx):
+    id_task = tuple(input("What's the task id? "))
+    print('Deleting task {}'.format(id_task))
+    cnx.delete_data(id_task)
 
 
 def get_task(cnx):
     id_task = tuple(input("What's the task id? "))
     task = cnx.get_details_task(id_task)
-    print('\n---------- DETAILS TASK {} ----------'.format(task.id))
-    print(
-        f"Task n°{task.id}\nTask created in: {task.created_date}\nTask: {task.task}\ndeadline: {task.deadline}"
-    )
-    print('--------------- END ---------------\n')
+    task.details()
 
 
 def main():

@@ -31,3 +31,11 @@ class Task:
         else:
             return '\033[32m' + 'Task {}: {}.\ndeadline: {}'.format(self.id, self.task, self.deadline) + '\033[0m'
 
+    def details(self):
+        print('\n---------- DETAILS TASK {} ----------'.format(self.id))
+        print(
+            f"Task n°{self.id}\nTask created in: {self.created_date}\nTask: {self.task}\ndeadline: {self.deadline}"
+        )
+        print('--------------- END ---------------')
+        input('Press enter to skip...')
+        print('',end='\n\n')

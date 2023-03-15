@@ -42,7 +42,7 @@ class ConnectorMysql:
         for job in list_of_tasks:
             task = Task(job)
             tasks.append(task)
-        return tasks
+        return tuple(tasks)
 
     def get_details_task(self, val):
         data_query = select_task_tbTodo()

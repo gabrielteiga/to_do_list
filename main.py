@@ -76,7 +76,7 @@ def main():
             print('\nSee you soon!\n')
             break
         else:
-            raise ValueError('Invalid request!')
+            print('Invalid request!')
     cnx.close_connector()
 
 

@@ -1,38 +1,62 @@
 import mysql.connector
 from task_object import Task
-from dbTodo import insert_data_tbTodo, update_data_tbTodo, select_data_tbTodo, delete_task_tbTodo, select_task_tbTodo
+from dbTodo import *
 
 
 class ConnectorMysql:
     def __init__(self):
-        user, pwd, host, db = self.login_local_host()
-        self.cnx = self.create_connector(user, pwd, host, db)
+        user, pwd = self.login_local_host()
+        self.cnx = self.create_connector(user, pwd)
         self.user = user.lower()
-        self.host = host.lower()
-        self.database = db.lower()
+        self.host = 'localhost'
+        self.database = 'todo'
         self.cursor = self.cnx.cursor()
 
     @staticmethod
     def login_local_host():
         user = str(input('User: '))
         pwd = str(input('Password: '))
-        host = str(input('Host: '))
-        db = str(input('Database: '))
         print('')
-        return user, pwd, host, db
+        return user, pwd
+
 
     @staticmethod
-    def create_connector(user, pwd, host, db):
-        try:
-            cnx = mysql.connector.connect(
-                user=f'{user}',
-                password=f'{pwd}',
-                host=f'{host}',
-                database=f'{db}'
-            )
-            return cnx
-        except:
-            print("Script didn't find the database")
+    def create_connector(user, pwd):
+        cnx = mysql.connector.connect(
+            user=f'{user}',
+            password=f'{pwd}',
+            host=f'localhost'
+        )
+        cursor = cnx.cursor()
+        data_query = show_databases()
+        cursor.execute(data_query)
+        for database in cursor:
+            if database[0] == 'todo':
+                cnx = mysql.connector.connect(
+                    user=f'{user}',
+                    password=f'{pwd}',
+                    host='localhost',
+                    database='todo'
+                )
+                return cnx
+            
+        data_query = create_todo()
+        cursor.execute(data_query)
+        
+        data_query = use_todo()
+        cursor.execute(data_query)
+
+        data_query = create_tbtodo()
+        cursor.execute(data_query)
+        
+        cnx = mysql.connector.connect(
+            user=f'{user}',
+            password=f'{pwd}',
+            host='localhost',
+            database='todo'
+        )
+        return cnx
+    
 
     def get_all_tasks(self):
         data_query = select_data_tbTodo()
@@ -74,4 +98,3 @@ class ConnectorMysql:
     def close_connector(self):
         self.cursor.close()
         self.cnx.close()
-

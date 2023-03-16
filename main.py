@@ -24,8 +24,8 @@ def client_request():
         """\nWhat do you wanna do?
         1 - New Task.
         2 - Update date's task.
-        3 - Delete a task.
-        4 - Details of a task.
+        3 - Details of a task.
+        4 - Delete a task.
         5 - Exit
         Answer: """
     ))
@@ -69,9 +69,9 @@ def main():
         elif request == 2:
             updating(cnx)
         elif request == 3:
-            deleting(cnx)
-        elif request == 4:
             get_task(cnx)
+        elif request == 4:
+            deleting(cnx)
         elif request == 5:
             print('\nSee you soon!\n')
             break

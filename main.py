@@ -40,9 +40,9 @@ def inserting(cnx):
 
 
 def updating(cnx):
-    task = str(input("What's task id? "))
+    id_task = str(input("What's task id? "))
     new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
-    val = (new_deadline, task)
+    val = (new_deadline, id_task)
     cnx.update_date(val)
 
 
@@ -54,7 +54,7 @@ def deleting(cnx):
 
 def get_task(cnx):
     id_task = tuple(input("What's the task id? "))
-    task = cnx.get_details_task(id_task)
+    task = cnx.get_task(id_task)
     task.details()
 
 

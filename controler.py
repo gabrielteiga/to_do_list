@@ -12,6 +12,7 @@ class ConnectorMysql:
         self.database = 'todo'
         self.cursor = self.cnx.cursor()
 
+
     @staticmethod
     def login_local_host():
         user = str(input('User: '))
@@ -42,13 +43,10 @@ class ConnectorMysql:
             
         data_query = create_todo()
         cursor.execute(data_query)
-        
         data_query = use_todo()
         cursor.execute(data_query)
-
         data_query = create_tbtodo()
         cursor.execute(data_query)
-        
         cnx = mysql.connector.connect(
             user=f'{user}',
             password=f'{pwd}',
@@ -68,22 +66,26 @@ class ConnectorMysql:
             tasks.append(task)
         return tuple(tasks)
 
-    def get_details_task(self, val):
+
+    def get_task(self, val):
         data_query = select_task_tbTodo()
         self.cursor.execute(data_query, val)
         job = self.cursor.fetchone()
         task = Task(job)
         return task
 
+
     def insert_task(self, val):
         data_query = insert_data_tbTodo()
         self.cursor.execute(data_query, val)
         self.commit()
 
+
     def update_date(self, val):
         data_query = update_data_tbTodo()
         self.cursor.execute(data_query, val)
         self.commit()
+
 
     def delete_data(self, id_task):
         data_query = delete_task_tbTodo()
@@ -91,9 +93,11 @@ class ConnectorMysql:
         self.commit()
         print('\nTask {} deleted!\n'.format(id_task))
 
+
     def commit(self):
         self.cnx.commit()
         print('\nNew commit!\nUser: {}\n'.format(self.user))
+
 
     def close_connector(self):
         self.cursor.close()

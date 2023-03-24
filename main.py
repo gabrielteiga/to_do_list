@@ -27,10 +27,7 @@ def deleting(cnx):
     cnx.delete_data(id_task)
 
 
-def get_task(cnx):
-    id_task = tuple(input("What's the task id? "))
-    task = cnx.get_task(id_task)
-    task.details()
+
 
 
 def main():
@@ -44,7 +41,7 @@ def main():
         elif request == 2:
             cnx.updating()
         elif request == 3:
-            get_task(cnx)
+            cnx.details_of_a_task()
         elif request == 4:
             deleting(cnx)
         elif request == 5:

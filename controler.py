@@ -127,3 +127,9 @@ class ConnectorMysql:
         new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
         val = (new_deadline, id_task)
         self.update_date(val)
+
+
+    def details_of_a_task(self):
+        id_task = tuple(input("What's the task id? "))
+        task = self.get_task(id_task)
+        task.details()

@@ -21,13 +21,6 @@ def client_request():
     return request
 
 
-def updating(cnx):
-    id_task = str(input("What's task id? "))
-    new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
-    val = (new_deadline, id_task)
-    cnx.update_date(val)
-
-
 def deleting(cnx):
     id_task = tuple(input("What's the task id? "))
     print('\nDeleting task {}'.format(id_task[0]))
@@ -49,7 +42,7 @@ def main():
         if request == 1:
             cnx.inserting()
         elif request == 2:
-            updating(cnx)
+            cnx.updating()
         elif request == 3:
             get_task(cnx)
         elif request == 4:

@@ -1,7 +1,7 @@
 import mysql.connector
+from datetime import date
 from task_object import Task
 from dbTodo import *
-
 
 class ConnectorMysql:
     def __init__(self):
@@ -91,7 +91,7 @@ class ConnectorMysql:
         data_query = delete_task_tbTodo()
         self.cursor.execute(data_query, id_task)
         self.commit()
-        print('\nTask {} deleted!\n'.format(id_task))
+        print('\nTask {} deleted!\n'.format(id_task[0]))
 
 
     def commit(self):
@@ -113,3 +113,10 @@ class ConnectorMysql:
         tasks = self.load_tasks()
         for task in tasks:
             print(task)
+
+
+    def inserting(self):
+        task = input('What do you need to do? ')
+        deadline = input("What's the deadline(YYYY-MM-DD)? ")
+        val = (date.today(), task, deadline)
+        self.insert_task(val)

@@ -1,5 +1,4 @@
 from controler import ConnectorMysql as Login
-import datetime
 
 
 def title_todolist():
@@ -21,15 +20,6 @@ def client_request():
     return request
 
 
-def deleting(cnx):
-    id_task = tuple(input("What's the task id? "))
-    print('\nDeleting task {}'.format(id_task[0]))
-    cnx.delete_data(id_task)
-
-
-
-
-
 def main():
     title_todolist()
     cnx = Login()
@@ -37,13 +27,13 @@ def main():
         cnx.show_tasks()
         request = client_request()
         if request == 1:
-            cnx.inserting()
+            cnx.inserting_new_task()
         elif request == 2:
-            cnx.updating()
+            cnx.updating_a_task()
         elif request == 3:
             cnx.details_of_a_task()
         elif request == 4:
-            deleting(cnx)
+            cnx.deleting_a_task()
         elif request == 5:
             print('\nSee you soon!\n')
             break

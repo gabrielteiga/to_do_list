@@ -56,6 +56,43 @@ class ConnectorMysql:
         return cnx
     
 
+    def load_tasks(self):
+        tasks = self.get_all_tasks()
+        return tasks
+
+
+    def show_tasks(self):
+        tasks = self.load_tasks()
+        for task in tasks:
+            print(task)
+
+
+    def inserting_new_task(self):
+        task = input('What do you need to do? ')
+        deadline = input("What's the deadline(YYYY-MM-DD)? ")
+        val = (date.today(), task, deadline)
+        self.insert_task(val)
+
+
+    def updating_a_task(self):
+        id_task = str(input("What's task id? "))
+        new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
+        val = (new_deadline, id_task)
+        self.update_date(val)
+
+
+    def details_of_a_task(self):
+        id_task = tuple(input("What's the task id? "))
+        task = self.get_task(id_task)
+        task.details()
+
+
+    def deleting_a_task(self):
+        id_task = tuple(input("What's the task id? "))
+        print('\nDeleting task {}...'.format(id_task[0]))
+        self.delete_data(id_task)
+
+
     def get_all_tasks(self):
         data_query = select_data_tbTodo()
         self.cursor.execute(data_query)
@@ -91,7 +128,7 @@ class ConnectorMysql:
         data_query = delete_task_tbTodo()
         self.cursor.execute(data_query, id_task)
         self.commit()
-        print('\nTask {} deleted!\n'.format(id_task[0]))
+        print('Task {} deleted!\n'.format(id_task[0]))
 
 
     def commit(self):
@@ -102,34 +139,3 @@ class ConnectorMysql:
     def close_connector(self):
         self.cursor.close()
         self.cnx.close()
-
-
-    def load_tasks(self):
-        tasks = self.get_all_tasks()
-        return tasks
-
-
-    def show_tasks(self):
-        tasks = self.load_tasks()
-        for task in tasks:
-            print(task)
-
-
-    def inserting(self):
-        task = input('What do you need to do? ')
-        deadline = input("What's the deadline(YYYY-MM-DD)? ")
-        val = (date.today(), task, deadline)
-        self.insert_task(val)
-
-
-    def updating(self):
-        id_task = str(input("What's task id? "))
-        new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
-        val = (new_deadline, id_task)
-        self.update_date(val)
-
-
-    def details_of_a_task(self):
-        id_task = tuple(input("What's the task id? "))
-        task = self.get_task(id_task)
-        task.details()

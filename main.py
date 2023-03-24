@@ -8,17 +8,6 @@ def title_todolist():
     print('*************************')
 
 
-def load_tasks(cnx):
-    tasks = cnx.get_all_tasks()
-    return tasks
-
-
-def show_tasks(cnx):
-    tasks = load_tasks(cnx)
-    for task in tasks:
-        print(task)
-
-
 def client_request():
     request = int(input(
         """\nWhat do you wanna do?
@@ -62,7 +51,7 @@ def main():
     title_todolist()
     cnx = Login()
     while True:
-        show_tasks(cnx)
+        cnx.show_tasks()
         request = client_request()
         if request == 1:
             inserting(cnx)

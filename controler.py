@@ -102,3 +102,14 @@ class ConnectorMysql:
     def close_connector(self):
         self.cursor.close()
         self.cnx.close()
+
+
+    def load_tasks(self):
+        tasks = self.get_all_tasks()
+        return tasks
+
+
+    def show_tasks(self):
+        tasks = self.load_tasks()
+        for task in tasks:
+            print(task)

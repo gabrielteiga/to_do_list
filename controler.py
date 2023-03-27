@@ -1,5 +1,5 @@
 import mysql.connector
-from datetime import date
+from datetime import date, datetime
 from task_object import Task
 from dbTodo import *
 
@@ -55,6 +55,23 @@ class ConnectorMysql:
         )
         return cnx
     
+    @staticmethod
+    def validate_deadline(day, month, year):
+        date_string = '{:04}-{:02}-{:02}'.format(year, month, day)
+        format_string = r'%Y-%m-%d'
+        try:
+            return datetime.strptime(date_string, format_string)
+        except:
+            raise ValueError('Invalid date!')
+
+
+    def input_deadline(self):
+        day = int(input('Input the day of deadline: '))
+        month = int(input('Input the month of deadline: '))
+        year = int(input('Input the year of deadline: '))
+        deadline = self.validate_deadline(day, month, year)
+        return deadline
+
 
     def load_tasks(self):
         tasks = self.get_all_tasks()
@@ -69,14 +86,14 @@ class ConnectorMysql:
 
     def inserting_new_task(self):
         task = input('What do you need to do? ')
-        deadline = input("What's the deadline(YYYY-MM-DD)? ")
+        deadline = self.input_deadline()
         val = (date.today(), task, deadline)
         self.insert_task(val)
 
 
     def updating_a_task(self):
         id_task = str(input("What's task id? "))
-        new_deadline = str(input("New deadline(YYYY-MM-DD)? "))
+        new_deadline = self.input_deadline()
         val = (new_deadline, id_task)
         self.update_date(val)
 

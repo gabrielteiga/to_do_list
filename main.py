@@ -8,7 +8,7 @@ def title_todolist():
 
 
 def client_request():
-    request = int(input(
+    request = input(
         """\nWhat do you wanna do?
         1 - New Task.
         2 - Update date's task.
@@ -16,8 +16,11 @@ def client_request():
         4 - Delete a task.
         5 - Exit
         Answer: """
-    ))
-    return request
+    )
+    if request.isdigit():
+        return int(request)
+    else:
+        input('Input a NUMBER! Press any key to continue...')
 
 
 def main():
@@ -38,7 +41,7 @@ def main():
             print('\nSee you soon!\n')
             break
         else:
-            print('Invalid request!')
+            print('Invalid request!', end='\n\n')
     cnx.close_connector()
 
 
